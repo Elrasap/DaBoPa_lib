@@ -1,2 +1,2 @@
 # DaBoPa_lib
-A hobby project of a mathematics library.
+A hobby project mathematics library.
