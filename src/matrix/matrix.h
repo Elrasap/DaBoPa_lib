@@ -40,7 +40,7 @@ class matrix
 	~matrix ();
 };
 
-class asdLDU{
+class LDU{
 	public:
 	matrix *P;
 	matrix *L;
@@ -48,7 +48,7 @@ class asdLDU{
 	matrix *U;
 	int status;
 
-	asdLDU (long m, long n);
+	LDU (long m, long n);
 	void destr ();
 };
 
@@ -65,7 +65,7 @@ void matrix_cp (matrix m1, matrix m2);
 matrix matadd (matrix m1, matrix m2);
 matrix matmul (matrix m1, matrix m2);
 matrix transpose (matrix m1);
-asdLDU ldu (matrix m);
+LDU ldu (matrix m);
 matrix m_inverse (matrix m);
 
 #endif /* MATRIX_H_SEEN */

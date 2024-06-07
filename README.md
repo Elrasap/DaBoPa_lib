@@ -1,2 +1,2 @@
 # DaBoPa_lib
-A hobby project mathematics library.
+This is the 'stable' branch. Progressing further with development, this branch is hoped to be kept as stable as possible.

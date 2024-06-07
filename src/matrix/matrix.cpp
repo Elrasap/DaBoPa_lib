@@ -486,13 +486,15 @@ matrix transpose (matrix m1)
 	return tr;
 }
 
-asdLDU ldu (matrix a) // Why, Gauss, of course.
+LDU ldu (matrix a) // Why, Gauss, of course.
 {
 	vector<matrix> steps;
+	vector<matrix> perm;
 	matrix dummy (a.m, a.m);
 	long x, y, z;
+	int i;
 	double l;
-	asdLDU ret (a.m, a.n);
+	LDU ret (a.m, a.n);
 
 	// matrix_cp (a, *(ret.U)); // initing. ret
 
@@ -508,7 +510,7 @@ asdLDU ldu (matrix a) // Why, Gauss, of course.
 	ret.L->be_i ();
 	ret.D->be_i ();
 
-	ret.status = 0; // 0: OK, -1: singular
+	ret.status = 0; // 0: OK, -1: singular, -2: row exchange req. or sing., -3: last pivot 0;
 
 /*	cout << "===" << endl;
 	a.print ();
@@ -524,9 +526,31 @@ asdLDU ldu (matrix a) // Why, Gauss, of course.
 
 		if (0 == ret.U->entry_v.at(x).at(y)) // checking if a row exchange is neccessary
 		{
-			//exchanging rows
-			ret.status = -2;
-			return ret;
+			for (; x < a.m && 0 == ret.U->entry_v.at(x).at(y) ; x++) // finding an appropriate row
+			{}					// (The original value was
+								// the same as that of why, and why shall not change.)
+			if (x == a.m)
+			{
+				ret.status = -1; // No possible row exchange, the matrix is singular.
+				return ret;
+			}
+
+			// exchanging rows
+			ret.U->exchange_rows (x, y);
+
+			// we must add a permutation matrix to perm
+			dummy.be_i ();
+			dummy.exchange_rows (x, y); // make it the appropriate perm. matrix
+			perm.push_back(dummy);
+
+			// and to also to steps
+			dummy.transpose (); // The transpose is the inverse
+			steps.push_back(dummy);
+
+			x = y; // restore original value
+
+			//ret.status = -2;
+			//return ret;
 		}
 
 		// eliminating the entries below the pivot
@@ -546,14 +570,27 @@ asdLDU ldu (matrix a) // Why, Gauss, of course.
 
 	}
 
+	// Calculating P by multuplying the inverses of the perms. in reverse order
+	while (0 != perm.size())
+	{
+		*(ret.P) = matmul (perm.back(), *(ret.P));
+		perm.pop_back ();
+	}
+
 	// Calculating L by multuplying the inverses of the steps in reverse order
 	while (0 != steps.size())
 	{
 		*(ret.L) = matmul (steps.back(), *(ret.L));
 		steps.pop_back ();
 	}
+	// and multiplying by the inverse of P (which is the transpose)
+	*(ret.L) = matmul (transpose (*(ret.P)), *(ret.L));
 
 	// factoring DU into D and U
+	if (0 == ret.U->entry_v.at(a.m - 1).at(a.n - 1))
+	{
+		ret.status = -3;
+	}
 	for (x = 0; x < a.m; x++)
 	{
 		ret.D->entry_v.at(x).at(x) = l = ret.U->entry_v.at(x).at(x);
@@ -566,109 +603,12 @@ asdLDU ldu (matrix a) // Why, Gauss, of course.
 	return ret;
 }
 
-	
-/*
-vector<matrix> ldu (matrix m) // Why, Gauss, of course.
-{
-cout << "ldu() started" << endl;
-	vector<matrix> ret;
-	int x, y, z, pivot_x, l;
-
-	// Initializing return vector
-	matrix dummy (m.m, m.m);
-	ret.push_back (dummy); // P
-	ret.push_back (dummy); // L
-	ret.push_back (dummy); // D
-	dummy.resize (m.m, m.n);
-	ret.push_back (m); // U
-	dummy.resize (1, 1); // status: 0: OK, -1: ERROR
-	ret.push_back (dummy);
-
-	dummy.resize (m.m, m.m);
-	dummy.be_i();
-	vector<matrix> steps; // The inverses of the steps req. to reach DU
-				// If EkEk-1...E2E1A = DU, then
-				// steps.at(j) = inverse (Ej).
-				// Ej is either an "elementary" or a perm. matrix.
-
-//	cout << "in ldu (), before any changes:" << endl;
-//	ret.at(3).print();
-
-
-	for (y = 0; y < m.n - 1 ; y++) // cycling through the columns
-	{
-cout << "\tldu(): column ";
-cout << y;
-cout << endl;
-ret.at(3).print ();
-		// we look if we (possibly through a row exchange) find a pivot
-		for (x = y; x < m.m; x++)
-		{
-		cout << x;
-			if (0 != ret.at(3).entry_v.at(x).at(y))
-			{
-		cout << " BREAK" << endl;
-				break;
-			}
-		}
-		cout << " x: ";
-		cout << x;
-		cout << endl;
-
-		if (x != y)
-		{
-			//cout << "=== Row exchange in progress" << endl;
-			//ret.at(3).print ();
-			ret.at(3).exchange_rows (x, y);
-			//ret.at(3).print ();
-			x = y;
-		}
-
-		// We have got a pivot now.
-		pivot_x = x;
-		// We now eliminate the entries below the pivot
-
-		for (x++ ; x < m.m; x++)
-		{
-			l = 1 * ret.at(3).entry_v.at(x).at(y) / ret.at(3).entry_v.at(pivot_x).at(y);
-
-			// "elementary" matrix
-			steps.push_back (dummy);
-			steps.back().entry_v.at(x).at(y) = l;
-
-			// elimination
-			for (z = 0; z < m.n; z++)
-			{
-//		ret.at(3).entry_v.at(x).at(z) -= ret.at(3).entry_v.at(pivot_x).at(z) * l;
-			}
-		}
-//ret.at(3).print ();
-	}
-
-cout << "=====" << endl;
-
-	matrix prt (m.m, m.m);
-	prt.be_i ();
-
-	for (x = 0; x < steps.size(); x++)
-	{
-		steps.at(x).print ();
-		//prt.times (steps.at(x));
-	}
-	cout << "product:" << endl;
-	prt.print ();
-
-cout << "ldu() done, returning ..." << endl;
-	return ret;
-}
-*/
-
 matrix m_inverse (matrix m)
 {
 	return m;
 }
 
-asdLDU::asdLDU (long m, long n)
+LDU::LDU (long m, long n)
 {
 	P = new matrix (m, m);
 	L = new matrix (m, m);
@@ -676,7 +616,7 @@ asdLDU::asdLDU (long m, long n)
 	U = new matrix (m, n);
 }
 
-void asdLDU::destr ()
+void LDU::destr ()
 {
 	delete P;
 	delete L;
