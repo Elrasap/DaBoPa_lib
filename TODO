@@ -1,0 +1,18 @@
+Nice way to implement similar methods and functions
+
+nice way to compile (modify comppile.sh, so that
+	it generates a library.h header file)
+
+inverse
+LDU
+QR
+Basis of the fund. subspaces
+rank
+norm
+cross product
+determinant
+eigenvectors/-values
+trace
+
+test suite
+input parser

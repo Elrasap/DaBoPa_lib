@@ -1,0 +1,10 @@
+ldu ():
+	implement row exchanges
+	implement partial pivoting
+exchange_rows (): test second implementation; make sure it works
+
+rename asdLDU to LDU
+
+asdLDU: maybe struct instead of class?
+
+cleanup code: delete unneccessary comments/code snippets
