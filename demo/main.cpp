@@ -3,7 +3,7 @@
 #include <vector>
 #include <assert.h>
 
-#include "../lib.h"
+#include "DaBoPa_lib.h"
 
 using namespace::std;
 

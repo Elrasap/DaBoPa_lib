@@ -1,5 +1,5 @@
-#ifndef MATRIX_H_SEEN
-#define MATRIX_H_SEEN
+#ifndef __DBPL_MATRIX_H_SEEN
+#define __DBPL_MATRIX_H_SEEN
 
 #include <vector>
 
@@ -52,14 +52,6 @@ class LDU{
 	void destr ();
 };
 
-//typedef struct struct_LDU LDU;
-
-/*class matrix: public matrix_list
-{
-	public:
-	matrix_list *next;
-};*/
-
 void matrix_cp (matrix m1, matrix m2);
 
 matrix matadd (matrix m1, matrix m2);
@@ -68,4 +60,4 @@ matrix transpose (matrix m1);
 LDU ldu (matrix m);
 matrix m_inverse (matrix m);
 
-#endif /* MATRIX_H_SEEN */
+#endif /* __DBPL_MATRIX_H_SEEN */

@@ -1,5 +1,5 @@
-#ifndef CONGIG_H_SEEN
-#define CONGIG_H_SEEN
+#ifndef __DBPL_TWEAKME_H_SEEN
+#define __DBPL_TWEAKME_H_SEEN
 
 
 
@@ -23,4 +23,4 @@
 
 
 
-#endif /* CONGIG_H_SEEN */
+#endif /* __DBPL_TWEAKME_H_SEEN */

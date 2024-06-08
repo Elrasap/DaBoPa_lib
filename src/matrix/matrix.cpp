@@ -3,8 +3,7 @@
 #include <vector>
 #include <assert.h>
 
-#include "matrix.h"
-#include "../config.h"
+#include "lib.h"
 
 using namespace::std;
 
