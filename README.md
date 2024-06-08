@@ -1,3 +1,10 @@
+# Disclaimer
+This is a hobby project in the early stages of development, with great
+[alternatives](https://en.wikipedia.org/wiki/List_of_numerical_libraries#C++).
+In its current state it is 
+at most expected to be useful for someone looking for simple examples of implementations of algorithms related to
+linear algebra.
+
 # DaBoPa_lib
 A hobby project mathematics library.
 
