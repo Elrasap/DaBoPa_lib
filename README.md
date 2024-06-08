@@ -1,4 +1,4 @@
-# Disclaimer
+## Disclaimer
 This is a hobby project in the early stages of development, with great
 [alternatives](https://en.wikipedia.org/wiki/List_of_numerical_libraries#C++).
 In its current state it is 
