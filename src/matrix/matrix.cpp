@@ -3,7 +3,7 @@
 #include <vector>
 #include <assert.h>
 
-#include "lib.h"
+#include "lib.hpp"
 
 using namespace::std;
 
@@ -307,7 +307,7 @@ void matrix::be_null ()
 	}
 }
 
-#ifdef MATRIX_H_OPTION_EXCHANGE_ROWS_1
+#ifdef __DBPL_MATRIX_HPP_OPTION_EXCHANGE_ROWS_1
 __attribute__((always_inline)) inline void matrix::exchange_rows (long x, long y)
 {
 	double cp;
@@ -320,9 +320,9 @@ __attribute__((always_inline)) inline void matrix::exchange_rows (long x, long y
 		entry_v.at(y).at(i) = cp;
 	}
 }
-#endif /* MATRIX_H_OPTION_EXCHANGE_ROWS_1 */
+#endif /* __DBPL_MATRIX_HPP_OPTION_EXCHANGE_ROWS_1 */
 
-#ifdef MATRIX_H_OPTION_EXCHANGE_ROWS_2
+#ifdef __DBPL_MATRIX_HPP_OPTION_EXCHANGE_ROWS_2
 /*__attribute__((always_inline)) */ inline void matrix::exchange_rows (long x, long y)
 {
 	int i;
@@ -335,7 +335,7 @@ __attribute__((always_inline)) inline void matrix::exchange_rows (long x, long y
 		entry_v.at(y).at(i) = -1 * entry_v.at(y).at(i);
 	}
 }
-#endif /* MATRIX_H_OPTION_EXCHANGE_ROWS_2 */
+#endif /* __DBPL_MATRIX_HPP_OPTION_EXCHANGE_ROWS_2 */
 
 void matrix::be_null (long Im, long In)
 {

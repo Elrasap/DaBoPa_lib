@@ -1,5 +1,5 @@
-#ifndef __DBPL_MATRIX_H_SEEN
-#define __DBPL_MATRIX_H_SEEN
+#ifndef __DBPL_MATRIX_HPP_SEEN
+#define __DBPL_MATRIX_HPP_SEEN
 
 #include <vector>
 
@@ -60,4 +60,4 @@ matrix transpose (matrix m1);
 LDU ldu (matrix m);
 matrix m_inverse (matrix m);
 
-#endif /* __DBPL_MATRIX_H_SEEN */
+#endif /* __DBPL_MATRIX_HPP_SEEN */
