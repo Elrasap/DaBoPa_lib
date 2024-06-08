@@ -36,3 +36,7 @@ Each CU is compiled with the `-I src/internal_include` option, so part of the pa
 ```
 #include "lib.h"
 ```
+
+### Built time configuration
+You can choose different implementations of functions by uncommenting/commenting out appropriate
+line in `src/internal_include/tweakme`.

@@ -1,8 +1,5 @@
 Nice way to implement similar methods and functions
 
-nice way to compile (modify comppile.sh, so that
-	it generates a library.h header file)
-
 inverse
 LDU
 QR
@@ -17,5 +14,3 @@ trace
 test suite
 
 input parser
-
-build system
