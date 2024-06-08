@@ -18,12 +18,12 @@ cross compile.
 Just include the DaBoPa_lib.h header file in src/include. Additionnal header files in subdirectories will be included.
 
 ### Header files for developers
-Every internal header file should be included in src/inernal_include/lib.h.
+Every internal header file should be included in `src/inernal_include/lib.h`.
 Every header file that a program linked against the lib would need should be placed in a subdirectory of
-src/include and included in src/include/DaBoPas_lib.h.
+`src/include` and included in `src/include/DaBoPas_lib.h`.
 
 Every internal source file should be placed in a subdirectory of
-src/internal include and included in src/inernal_include/lib.h.
+`src/internal` include and included in `src/inernal_include/lib.h`.
 
 Each CU is compiled with the `-I src/internal_include` option, so part of the path can be omitted:
 ```
