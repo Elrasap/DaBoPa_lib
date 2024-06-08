@@ -39,6 +39,7 @@ m2.entry_v.at(2).at(0) = 0; m2.entry_v.at(2).at(1) = 1; m2.entry_v.at(2).at(2) =
 	cout << "m =" << endl;
 	ret.U->print ();
 	ret.destr ();
+
 /*
 	cout << "m =" << endl;
 	m.print();
